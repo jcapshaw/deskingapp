@@ -1,0 +1,28 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* This will create two columns of equal width */
+  gap: 20px; /* Space between grid items */
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px; /* Space at the bottom for some breathing room */
+}
+
+.summary-container {
+  position: fixed;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;  /* Rounds the corners */
+  padding: 10px;  /* Adds some space inside the box */
+  display: flex;
+  justify-content: space-between;  /* Aligns content on both ends */
+  align-items: center;  /* Vertically centers the content */
+  margin-top: 20px;  /* Adds some space at the top */
+}
+
+.summary-container h2 {
+  font-family: "latino-gothic-variable",sans-serif;
+  font-variation-settings: 'wght' 50, 'wdth' 50, 'slnt' 1;
+  align-content: center;
+  text-align: center;
+  margin: 0;  /* Removes default margin */
+}

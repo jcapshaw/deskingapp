@@ -1,0 +1,152 @@
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 640px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  width: 90%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 640px; /* Adjust as needed */
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-container h2 {
+  text-align: center;
+  font-family: "latino-gothic-variable", sans-serif;
+  font-variation-settings: 'wght' 40, 'wdth' 50, 'slnt' 1;
+  margin-bottom: 20px;
+}
+
+.products-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  gap: 20px; /* Space between grid items */
+  width: 100%; /* Full width of the modal container */
+}
+
+.product-item {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+  padding: 10px;
+}
+
+.modal-container .product-item label {
+  margin-bottom: auto;
+  font-family: "latino-gothic-variable", sans-serif;
+  font-variation-settings: 'wght' 40, 'wdth' 50, 'slnt' 1;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  width: 80%;
+}
+
+.button-container .MuiButton-root {
+  width: 40%;
+}
+
+.buttonModal {
+  flex: 1; /* Each button will take up equal space */
+  margin: 15px;
+  padding: 15px 15px;
+  font-size: 0.8rem;
+  max-width: 150px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns of equal width */
+  gap: 20px; /* Space between grid items */
+  align-items: start; /* Align items to the start of the container */
+  justify-content: center; /* Center grid items horizontally */
+  width: 80%; /* Adjust the width as needed */
+  max-width: 1200px; /* Maximum width of the container */
+  margin: 0 auto; /* Center the grid container */
+  padding: 20px; /* Padding around the grid */
+  box-sizing: border-box; /* Include padding in the width calculation */
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px; /* Space between grid items */
+  margin: 20px 0; /* Vertical space before and after the grid */
+}
+
+.input {
+  padding: 16px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  font-family: "latino-gothic-variable",sans-serif;
+  font-variation-settings: 'wght' 40, 'wdth' 50, 'slnt' 1;
+  font-size: 18px;
+  height: 40px;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column; /* Stack the label and input vertically */
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkbox-effect-1 {
+  display: none; /* This hides the default checkbox */
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding-left: 35px;
+}
+
+.checkbox-label .checkbox-custom {
+  position: relative;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #838383;
+  background-color: rgba(221, 221, 221, 0.50);
+  transition: background-color 0.3s;
+  margin-right: 10px;
+  /* Add a background image for unchecked state if needed */
+}
+
+/* When the checkbox is checked, change the background and display a checkmark */
+.checkbox-effect-1:checked + .checkbox-label .checkbox-custom {
+  background-color: #ffffff; /* Background color for checked state */
+  content: ''; /* Clear any content */
+  display: block; /* Ensure it's displayed */
+}
+
+/* Create a checkmark using a pseudo-element */
+.checkbox-effect-1:checked + .checkbox-label .checkbox-custom::after {
+  content: '✅'; /* This is the checkmark */
+  position: absolute;
+  left: -9px; /* Center the checkmark horizontally */
+  top: -9px; /* Center the checkmark vertically */
+  font-size: 28px;
+}

@@ -1,0 +1,138 @@
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type="number"] {
+    font-family: "latino-gothic-variable",sans-serif;
+    font-variation-settings: 'wght' 30, 'wdth' 40, 'slnt' 1;
+    -moz-appearance: textfield;
+}
+
+.inputFieldContainer {
+    font-family: "latino-gothic-variable",sans-serif;
+    font-variation-settings: 'wght' 30, 'wdth' 40, 'slnt' 1; 
+    gap: 10px;
+}
+
+.input-group .MuiTextField-root {
+  width: 80%; /* Full width of the column */
+  /* Additional styles if needed */
+}
+
+h1 {
+    background-color: #006797;
+    background-image: linear-gradient(45deg, #96bffc, #0020d3);
+    background-size: 100%;
+    font-family: "latino-gothic-variable",sans-serif;
+    font-variation-settings: 'wght' 80, 'wdth' 80, 'slnt' 1;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent;
+}
+
+h2 {
+  background-color: #006797;
+  background-image: linear-gradient(45deg, #96bffc, #0020d3);
+  background-size: 100%;
+  font-family: "latino-gothic-variable",sans-serif;
+  font-variation-settings: 'wght' 70, 'wdth' 70, 'slnt' 1;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-text-fill-color: transparent;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns of equal width */
+  gap: 20px; /* Space between grid items */
+  align-items: start; /* Align items to the start of the container */
+  justify-content: center; /* Center grid items horizontally */
+  width: 80%; /* Adjust the width as needed */
+  max-width: 1200px; /* Maximum width of the container */
+  margin: 0 auto; /* Center the grid container */
+  padding: 20px; /* Padding around the grid */
+  box-sizing: border-box; /* Include padding in the width calculation */
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px; /* Space between grid items */
+  margin: 20px 0; /* Vertical space before and after the grid */
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row; /* Align buttons horizontally */
+  justify-content: space-between; /* Space out buttons */
+  width: 100%; /* Fill the column width */
+}
+
+.button-container button {
+  flex: 1; /* Each button will take up equal space */
+  margin: 0 10px; /* Add margin for spacing, adjust as needed */
+}
+
+
+.input {
+  padding: 16px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  font-family: "latino-gothic-variable",sans-serif;
+  font-variation-settings: 'wght' 40, 'wdth' 50, 'slnt' 1;
+  font-size: 18px;
+  height: 40px;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column; /* Stack the label and input vertically */
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  gap: 10px;
+}
+
+ul.selected-products-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.input[type="text"],
+.input[type="number"] {
+  font-family: "latino-gothic-variable",sans-serif;
+  font-variation-settings: 'wght' 50, 'wdth' 50, 'slnt' 1;
+  height: 40px;
+}
+
+.proposal-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Adjust as needed */
+}
+
+.create-proposal-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #0e7ece;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.create-proposal-button:hover {
+  background-color: #ffa704;
+}
+
+.products-container {
+  width: 80%; /* Full width of the column */
+  /* Additional styles if needed */
+}
