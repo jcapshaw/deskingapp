@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NumericFormat } from "react-number-format";
+import { NumericFormat, NumberFormatValues } from "react-number-format";
 import { ref, set } from "firebase/database";
 import { database } from "./firebase.js";
 import { generateUniqueId } from "./uniqueId";
@@ -21,7 +21,27 @@ import FinanceCalculator from "./FinanceCalculator";
 const DEFAULT_TAX_RATE = 8.1; // Change to your default percentage
 const DEFAULT_FLAT_TAX_FEE = 20; // Change to your default flat fee if any
 
-const InputField: React.FC = () => {
+interface InputFieldProps {
+  onRetailPriceChange: (newPrice: number) => void;
+  onFinanceAmountChange: (newAmount: number) => void;
+}
+
+interface ProposalData {
+  retailPrice: number | null;
+  discount: number | null;
+  sellingPrice: number | null;
+  tradeValue: number | null;
+  tradePayoff: number | null;
+  docFee: number;
+  governmentFees: number | null;
+  effectiveTax: number;
+  quoteNumber?: string;
+}
+
+const InputField: React.FC<InputFieldProps> = ({
+  onRetailPriceChange,
+  onFinanceAmountChange,
+}) => {
   const [retailPrice, setRetailPrice] = useState<number | null>(null);
   const [discount, setDiscount] = useState<number | null>(null);
   const [sellingPrice, setSellingPrice] = useState<number | null>(null);
@@ -48,7 +68,7 @@ const InputField: React.FC = () => {
     setUniqueId(id);
   }, []); // The empty array ensures this effect runs only once on mount
 
-  const saveProposal = async (proposal) => {
+  const saveProposal = async (proposal: ProposalData) => {
     const uniqueId = generateUniqueId();
     proposal.quoteNumber = uniqueId;
 
@@ -90,7 +110,7 @@ const InputField: React.FC = () => {
       effectiveTax,
       totalProductValue,
       docFee,
-      governmentFees,
+      governmentFees
     );
     setTotalAmount(total);
   }, [
@@ -109,39 +129,30 @@ const InputField: React.FC = () => {
     setEffectiveTax(taxableAmount * (totalTaxRate / 100) + flatTaxFee);
   };
 
-  const handleRetailPriceChange = (values) => {
+  const handleRetailPriceChange = (values: NumberFormatValues) => {
     const { floatValue } = values;
-    setRetailPrice(floatValue);
+    console.log("Updated Retail Price:", floatValue);
+    setRetailPrice(floatValue || null);
     setSellingPrice(
-      floatValue ? floatValue - (discount || 0) - (rebate || 0) : null,
+      floatValue ? floatValue - (discount || 0) - (rebate || 0) : null
     );
-  };
-
-  const handleSellingPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(e.target.value);
-    if (!isNaN(value)) {
-      setSellingPrice(value);
-      if (retailPrice !== null) {
-        setDiscount(retailPrice - value - (rebate || 0));
-      }
-    } else {
-      setSellingPrice(null);
+    if (floatValue !== undefined) {
+      onRetailPriceChange(floatValue);
     }
   };
 
-  const handleDiscountChange = (values) => {
+  const handleDiscountChange = (values: NumberFormatValues) => {
     const { floatValue } = values;
-    setDiscount(floatValue);
+    setDiscount(floatValue || null);
     // Calculate the new selling price
     const newSellingPrice =
       (retailPrice || 0) - (floatValue || 0) - (rebate || 0);
     setSellingPrice(newSellingPrice > 0 ? newSellingPrice : null);
   };
 
-  // Handler for when the rebate changes
-  const handleRebateChange = (values) => {
+  const handleRebateChange = (values: NumberFormatValues) => {
     const { floatValue } = values;
-    setRebate(floatValue);
+    setRebate(floatValue || null);
     // Calculate the new selling price
     const newSellingPrice =
       (retailPrice || 0) - (discount || 0) - (floatValue || 0);
@@ -149,7 +160,7 @@ const InputField: React.FC = () => {
   };
 
   const handleTradeValueChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const value = parseFloat(event.target.value);
     if (!isNaN(value)) {
@@ -238,7 +249,9 @@ const InputField: React.FC = () => {
             label="Selling Price"
             type="text"
             value={sellingPrice || ""}
-            onValueChange={({ floatValue }) => setSellingPrice(floatValue)}
+            onValueChange={(values) =>
+              setSellingPrice(values.floatValue || null)
+            }
             variant="outlined"
           />
         </div>
@@ -251,7 +264,7 @@ const InputField: React.FC = () => {
             label="Trade Value"
             type="text"
             value={tradeValue || ""}
-            onValueChange={({ floatValue }) => setTradeValue(floatValue)}
+            onValueChange={(values) => setTradeValue(values.floatValue || null)}
             variant="outlined"
           />
         </div>
@@ -264,7 +277,9 @@ const InputField: React.FC = () => {
             label="Trade Payoff"
             type="text"
             value={tradePayoff || ""}
-            onValueChange={({ floatValue }) => setTradePayoff(floatValue)}
+            onValueChange={(values) =>
+              setTradePayoff(values.floatValue || null)
+            }
             variant="outlined"
           />
         </div>
@@ -277,7 +292,7 @@ const InputField: React.FC = () => {
             label="Documentation Fee"
             type="text"
             value={docFee || ""}
-            onValueChange={({ floatValue }) => setDocFee(floatValue)}
+            onValueChange={(values) => setDocFee(values.floatValue || 0)}
             variant="outlined"
           />
         </div>
@@ -291,8 +306,7 @@ const InputField: React.FC = () => {
             type="text"
             value={governmentFees !== null ? governmentFees.toString() : ""}
             onValueChange={(values) => {
-              const { floatValue } = values;
-              setGovernmentFees(floatValue);
+              setGovernmentFees(values.floatValue || null);
             }}
             variant="outlined"
           />
@@ -335,7 +349,6 @@ const InputField: React.FC = () => {
         </div>
         <div className="input-group">
           <Products
-            PRODUCTS={PRODUCTS}
             selectedProducts={selectedProducts}
             setSelectedProducts={setSelectedProducts}
             totalProductValue={totalProductValue}
@@ -350,11 +363,11 @@ const InputField: React.FC = () => {
             <ul>
               {selectedProducts.map((productId) => {
                 const product = PRODUCTS.find((p) => p.id === productId);
-                return (
+                return product ? (
                   <li key={productId}>
                     {product.name}: ${product.value.toFixed(2)}
                   </li>
-                );
+                ) : null;
               })}
             </ul>
           </DialogContent>
@@ -375,10 +388,13 @@ const InputField: React.FC = () => {
           sellingPrice={sellingPrice}
           tradeValue={tradeValue}
           tradePayoff={tradePayoff}
-          salesTax={effectiveTax} // Assuming effectiveTax is your sales tax state
+          salesTax={effectiveTax}
           totalProductValue={totalProductValue}
           docFee={docFee}
           governmentFees={governmentFees}
+          retailPrice={retailPrice}
+          financeAmount={totalAmount}
+          downPayment={0} // Add this line or use an actual downPayment state if you have one
         />
 
         <div className="input-group">

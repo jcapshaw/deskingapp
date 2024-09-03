@@ -7,18 +7,20 @@ type SummaryProps = {
   sellingPrice: number | null;
   tradeValue: number | null;
   tradePayoff: number | null;
+  downPayment: number | null;
   salesTax: number | null;
   totalProductValue: number | null;
   docFee: number | null;
   governmentFees: number | null;
-  retailPrice: number | null; // Assume added for the example
-  financeAmount: number | null; // Assume added for the example
+  retailPrice: number | null;
+  financeAmount: number | null;
 };
 
 const Summary: React.FC<SummaryProps> = ({
   sellingPrice,
   tradeValue,
   tradePayoff,
+  downPayment,
   salesTax,
   totalProductValue,
   docFee,
@@ -36,13 +38,12 @@ const Summary: React.FC<SummaryProps> = ({
     governmentFees,
   );
 
+  console.log("Received Retail Price in Summary:", retailPrice);
+
   const formattedTotal = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
   }).format(total);
-
-  const percentage =
-    retailPrice && financeAmount ? (retailPrice / financeAmount) * 100 : 0;
 
   return (
     <>
@@ -63,16 +64,9 @@ const Summary: React.FC<SummaryProps> = ({
         }}
       />
       <GaugeChartLTV
-        value={percentage}
-        minValue={0}
-        maxValue={200}
-        lineWidth={2}
-        label={`Percentage: ${percentage.toFixed(2)}%`}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        financeAmount={financeAmount}
+        retailPrice={retailPrice}
+        downPayment={downPayment}
       />
     </>
   );
